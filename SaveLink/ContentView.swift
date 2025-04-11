@@ -7,55 +7,58 @@
 
 import SwiftUI
 import SwiftData
+import Firebase
+
+enum AuthenticationSheetView: String, Identifiable {
+    case Register
+    case Login
+    var id: String { self.rawValue }
+}
+
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
-    var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+    @State private var authenticationSheetView: AuthenticationSheetView?
+    
+    var body: some View{
+        VStack {
+            Image("usuario")
+                .resizable()
+                .frame(width: 200,height: 200)
+            VStack {
+                Button {
+                    authenticationSheetView = .Login
+                    print("Login")
+                } label: {
+                    Label("Entra con Email", systemImage: "envelope.fill")
+                }.tint(.black)
+                    .controlSize(.large)
+                    .buttonStyle(.bordered)
+                    .buttonBorderShape(.capsule)
+                    .padding(.top, 60)
+                Spacer()
+                HStack {
+                    Button {
+                        authenticationSheetView = .Register
+                        print("Registro")
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
+                        Text("¿No tienes una cuenta?")
+                        Text("Registrate")
+                            .underline()
+                    }.tint(.black)
                 }
             }
-        } detail: {
-            Text("Select an item")
         }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+        .sheet(item: $authenticationSheetView, content: { sheet in
+            switch sheet {
+            case .Register:
+                Text("Registro")
+            case .Login:
+                Text("Login")
             }
-        }
+        })
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }
