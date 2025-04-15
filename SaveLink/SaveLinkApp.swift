@@ -20,17 +20,23 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct SaveLinkApp: App {
-  // register app delegate for Firebase setup
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+
+  @State var authenticationViewModel = AuthenticationViewModel()
 
   var body: some Scene {
     WindowGroup {
       NavigationView {
-        ContentView().onAppear {
-            Analytics.logEvent("ContentView_loaded", parameters: [
-                "screen_name": "ContentView"
-            ])
+        if let user = authenticationViewModel.user {
+          Text("Hello, \(user.email)!")
+        } else {
+          AuthenticationView(authenticationViewModel: authenticationViewModel)
         }
+      }
+      .onAppear {
+        Analytics.logEvent("ContentView_loaded", parameters: [
+          "screen_name": "ContentView"
+        ])
       }
     }
   }

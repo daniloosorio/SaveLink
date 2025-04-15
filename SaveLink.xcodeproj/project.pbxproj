@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		87820C1E2DA8A4A50089AC4A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 87820C1D2DA8A4A50089AC4A /* FirebaseAnalytics */; };
+		87C20E9E2DADF30700AE5B39 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 87C20E9D2DADF30700AE5B39 /* FirebaseAuth */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				87820C1E2DA8A4A50089AC4A /* FirebaseAnalytics in Frameworks */,
+				87C20E9E2DADF30700AE5B39 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +85,7 @@
 				87820BEF2DA8A2BA0089AC4A /* SaveLink */,
 				87820C022DA8A2BC0089AC4A /* SaveLinkTests */,
 				87820C0C2DA8A2BC0089AC4A /* SaveLinkUITests */,
+				87C20E9C2DADF30700AE5B39 /* Frameworks */,
 				87820BEE2DA8A2BA0089AC4A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -95,6 +98,13 @@
 				87820C092DA8A2BC0089AC4A /* SaveLinkUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		87C20E9C2DADF30700AE5B39 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,6 +128,7 @@
 			name = SaveLink;
 			packageProductDependencies = (
 				87820C1D2DA8A4A50089AC4A /* FirebaseAnalytics */,
+				87C20E9D2DADF30700AE5B39 /* FirebaseAuth */,
 			);
 			productName = SaveLink;
 			productReference = 87820BED2DA8A2BA0089AC4A /* SaveLink.app */;
@@ -584,6 +595,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 87820C1C2DA8A4A50089AC4A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
+		};
+		87C20E9D2DADF30700AE5B39 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 87820C1C2DA8A4A50089AC4A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

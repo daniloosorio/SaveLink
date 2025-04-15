@@ -16,21 +16,24 @@ enum AuthenticationSheetView: String, Identifiable {
 }
 
 
-struct ContentView: View {
+struct AuthenticationView: View {
+    @State var authenticationViewModel :AuthenticationViewModel
     @State private var authenticationSheetView: AuthenticationSheetView?
     
     var body: some View{
         VStack {
             Image("usuario")
                 .resizable()
-                .frame(width: 200,height: 200)
+                .frame(width: 200, height: 200)
+                .background(Color.white)
+                .cornerRadius(20)
             VStack {
                 Button {
                     authenticationSheetView = .Login
                     print("Login")
                 } label: {
-                    Label("Entra con Email", systemImage: "envelope.fill")
-                }.tint(.black)
+                    Label("Entra con Email", systemImage: "envelope.fill").foregroundColor(.primary)
+                }.tint(.gray)
                     .controlSize(.large)
                     .buttonStyle(.bordered)
                     .buttonBorderShape(.capsule)
@@ -44,21 +47,21 @@ struct ContentView: View {
                         Text("¿No tienes una cuenta?")
                         Text("Registrate")
                             .underline()
-                    }.tint(.black)
+                    }.tint(.primary)
                 }
             }
         }
         .sheet(item: $authenticationSheetView, content: { sheet in
             switch sheet {
             case .Register:
-                Text("Registro")
+                RegisterEmailView(authenticationViewModel:authenticationViewModel)
             case .Login:
-                Text("Login")
+                LoginEmailView()
             }
         })
     }
 }
 
 #Preview {
-    ContentView()
+    AuthenticationView(authenticationViewModel: AuthenticationViewModel())
 }
