@@ -8,11 +8,12 @@
 import SwiftUI
 import Firebase
 import FirebaseAnalytics
-
+import FacebookLogin
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+      ApplicationDelegate.shared.application(application,didFinishLaunchingWithOptions: launchOptions)
     FirebaseApp.configure()
     return true
   }
@@ -27,8 +28,8 @@ struct SaveLinkApp: App {
   var body: some Scene {
     WindowGroup {
       NavigationView {
-        if let user = authenticationViewModel.user {
-          Text("Hello, \(user.email)!")
+        if let _ = authenticationViewModel.user {
+            HomeView(authenticationViewModel: authenticationViewModel)
         } else {
           AuthenticationView(authenticationViewModel: authenticationViewModel)
         }

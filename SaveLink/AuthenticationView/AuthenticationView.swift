@@ -38,6 +38,22 @@ struct AuthenticationView: View {
                     .buttonStyle(.bordered)
                     .buttonBorderShape(.capsule)
                     .padding(.top, 60)
+                
+                Button {
+                    authenticationViewModel.loginWithFacebook()
+                    print("Login")
+                } label: {
+                    Label {
+                        Text("Entra con Facebook")
+                    } icon: {
+                        Image("face").resizable().frame(width: 25,height: 25)
+                    }
+                    .foregroundColor(.primary)
+                }.tint(.blue)
+                    .controlSize(.large)
+                    .buttonStyle(.bordered)
+                    .buttonBorderShape(.capsule)
+                    .padding(.top, 15)
                 Spacer()
                 HStack {
                     Button {
@@ -56,7 +72,7 @@ struct AuthenticationView: View {
             case .Register:
                 RegisterEmailView(authenticationViewModel:authenticationViewModel)
             case .Login:
-                LoginEmailView()
+                LoginEmailView(authenticationViewModel:authenticationViewModel)
             }
         })
     }

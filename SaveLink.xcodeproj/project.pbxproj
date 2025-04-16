@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		87820C1E2DA8A4A50089AC4A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 87820C1D2DA8A4A50089AC4A /* FirebaseAnalytics */; };
 		87C20E9E2DADF30700AE5B39 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 87C20E9D2DADF30700AE5B39 /* FirebaseAuth */; };
+		87DB2DBC2DAF419900806D28 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 87DB2DBB2DAF419900806D28 /* FacebookLogin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +35,22 @@
 		87820C092DA8A2BC0089AC4A /* SaveLinkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SaveLinkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		87DB2DBE2DAF427A00806D28 /* Exceptions for "SaveLink" folder in "SaveLink" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 87820BEC2DA8A2BA0089AC4A /* SaveLink */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		87820BEF2DA8A2BA0089AC4A /* SaveLink */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				87DB2DBE2DAF427A00806D28 /* Exceptions for "SaveLink" folder in "SaveLink" target */,
+			);
 			path = SaveLink;
 			sourceTree = "<group>";
 		};
@@ -59,6 +73,7 @@
 			files = (
 				87820C1E2DA8A4A50089AC4A /* FirebaseAnalytics in Frameworks */,
 				87C20E9E2DADF30700AE5B39 /* FirebaseAuth in Frameworks */,
+				87DB2DBC2DAF419900806D28 /* FacebookLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +144,7 @@
 			packageProductDependencies = (
 				87820C1D2DA8A4A50089AC4A /* FirebaseAnalytics */,
 				87C20E9D2DADF30700AE5B39 /* FirebaseAuth */,
+				87DB2DBB2DAF419900806D28 /* FacebookLogin */,
 			);
 			productName = SaveLink;
 			productReference = 87820BED2DA8A2BA0089AC4A /* SaveLink.app */;
@@ -214,6 +230,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				87820C1C2DA8A4A50089AC4A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				87DB2DBA2DAF419900806D28 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 87820BEE2DA8A2BA0089AC4A /* Products */;
@@ -419,6 +436,7 @@
 				DEVELOPMENT_TEAM = Y285ZR325T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SaveLink/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -448,6 +466,7 @@
 				DEVELOPMENT_TEAM = Y285ZR325T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SaveLink/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -588,6 +607,14 @@
 				minimumVersion = 11.11.0;
 			};
 		};
+		87DB2DBA2DAF419900806D28 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -600,6 +627,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 87820C1C2DA8A4A50089AC4A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		87DB2DBB2DAF419900806D28 /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 87DB2DBA2DAF419900806D28 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

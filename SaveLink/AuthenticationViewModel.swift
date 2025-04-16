@@ -36,4 +36,40 @@ final class AuthenticationViewModel {
             
         })
     }
+    
+    func login(email: String, password: String){
+        authenticationRepository.login(email: email, password: password, completionBlock: {[weak self] result in
+            switch result {
+                case .success(let user):
+                    self?.user = user
+                case .failure(let error):
+                    self?.messageError = error.localizedDescription
+                
+            }
+            
+        })
+    }
+    func loginWithFacebook(){
+        authenticationRepository.loginFacebook(completionBlock: {[weak self] result in
+            switch result {
+                case .success(let user):
+                    self?.user = user
+                case .failure(let error):
+                    self?.messageError = error.localizedDescription
+                
+            }
+            
+        })
+    }
+    
+    
+    func logout(){
+        do {
+            try authenticationRepository.logout()
+            self.user = nil
+        }catch{
+            print("Error logout")
+            
+        }
+    }
 }
