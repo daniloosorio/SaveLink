@@ -8,9 +8,6 @@
 import Foundation
 import FirebaseAuth
 
-struct User {
-    let email:String
-}
 
 final class AuthenticationFirebaseDataSource {
     private var facebookAuthentication = FacebookAuthentication()
@@ -54,6 +51,8 @@ final class AuthenticationFirebaseDataSource {
         facebookAuthentication.loginFacebook{ result in
             switch result {
             case .success(let accessToken):
+                print("Received Facebook AccessToken: \(accessToken)")
+
                 let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
                 Auth.auth().signIn(with: credential){ AuthDataResult, error in
                     if let error = error {
@@ -70,5 +69,15 @@ final class AuthenticationFirebaseDataSource {
                 completionBlock(.failure(error))
             }
         }
+    }
+    
+    func currentProvider() -> [LinkedAccount] {
+        guard let currentUser = Auth.auth().currentUser else {
+            return []
+        }
+        let linkedAccounts = currentUser.providerData.map { userInfo in
+            LinkedAccount(rawValue: userInfo.providerID)
+        }.compactMap{$0}
+        return linkedAccounts
     }
 }

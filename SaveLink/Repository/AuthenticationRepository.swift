@@ -37,4 +37,8 @@ final class AuthenticationRepository {
     func logout() throws {
         try authenticationFirebaseDataSource.logout()
     }
+    
+    func getCurrentProvider() -> [LinkedAccount]{
+        authenticationFirebaseDataSource.currentProvider()
+    }
 }

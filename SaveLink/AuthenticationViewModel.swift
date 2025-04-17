@@ -11,6 +11,7 @@ import Foundation
 final class AuthenticationViewModel {
     var user: User?
     var messageError: String?
+    var linkedAccount : [LinkedAccount] = []
     private let authenticationRepository: AuthenticationRepository
     
     init(authenticationRepository: AuthenticationRepository = AuthenticationRepository()) {
@@ -71,5 +72,17 @@ final class AuthenticationViewModel {
             print("Error logout")
             
         }
+    }
+    
+    func getCurrentProvider() {
+        linkedAccount = authenticationRepository.getCurrentProvider()
+        print("user provider \(linkedAccount)")
+    }
+    
+    func isEmailAndPasswordLinked() ->Bool {
+        linkedAccount.contains(where: {$0.rawValue == "password"})
+    }
+    func isFacebookLinked() ->Bool {
+        linkedAccount.contains(where: {$0.rawValue == "facebook.com"})
     }
 }
