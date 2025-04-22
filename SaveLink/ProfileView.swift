@@ -16,20 +16,29 @@ struct ProfileView: View {
                     print("vincular email y password")
                 }, label: {
                     Label("Vincula Email", systemImage: "envelope.fill")
-                }).disabled(<#T##disabled: Bool##Bool#>)
+                }).disabled(authenticationViewModel.isEmailAndPasswordLinked())
                 Button(action: {
                     print("Vincular facebook")
+                    authenticationViewModel.linkFacebook()
                 }, label: {
                     Label {
                         Text("Vincula facebook")
                     } icon: {
                         Image("face").resizable().frame(width: 25,height: 25)
                     }
-                })
+                }).disabled(authenticationViewModel.isFacebookLinked())
             } header: {
                 Text("Vincula otras cuentas a la sesion actual")
             }
-        }
+        }.task {
+            authenticationViewModel.getCurrentProvider()
+        }.alert(authenticationViewModel.isAccountLinked ? "cuenta vinculada!" : "Error",
+                isPresented: $authenticationViewModel.showAlert,
+                actions: {
+            Button("Aceptar"){print("dismiss alert")}},
+                message: {
+            Text(authenticationViewModel.isAccountLinked ?  "✅ Se ha vinculado la cuenta" : "❌ No se ha podido vincular la cuenta")
+        })
     }
 }
 

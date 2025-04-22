@@ -12,6 +12,8 @@ final class AuthenticationViewModel {
     var user: User?
     var messageError: String?
     var linkedAccount : [LinkedAccount] = []
+    var showAlert: Bool = false
+    var isAccountLinked: Bool = false
     private let authenticationRepository: AuthenticationRepository
     
     init(authenticationRepository: AuthenticationRepository = AuthenticationRepository()) {
@@ -76,13 +78,33 @@ final class AuthenticationViewModel {
     
     func getCurrentProvider() {
         linkedAccount = authenticationRepository.getCurrentProvider()
-        print("user provider \(linkedAccount)")
+        print("current provider \(linkedAccount)")
     }
     
     func isEmailAndPasswordLinked() ->Bool {
-        linkedAccount.contains(where: {$0.rawValue == "password"})
+        print("isEmail \(linkedAccount)")
+        return linkedAccount.contains(where: {$0.rawValue == "password"})
     }
     func isFacebookLinked() ->Bool {
         linkedAccount.contains(where: {$0.rawValue == "facebook.com"})
+    }
+    
+    func linkFacebook(){
+        authenticationRepository.linkFacebook(){ [weak self] isSucces in
+            print("Linked Facebook \(isSucces.description)")
+            self?.isAccountLinked = isSucces
+            self?.showAlert.toggle()
+            self?.getCurrentProvider()
+        }
+    }
+    
+    func linkEmailAndPassword(email:String, password:String){
+        authenticationRepository.linkEmailAndPassword(email: email, password: password, completionBlock: {[weak self] isSucces in
+            print("linked email and password \(isSucces.description)")
+            self?.isAccountLinked = isSucces
+            self?.showAlert.toggle()
+            self?.getCurrentProvider()
+            
+        })
     }
 }

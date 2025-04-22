@@ -39,5 +39,9 @@ final class FacebookAuthentication {
             completionBlock(.success(token))
         }
     }
+    
+    func getAccessToken() -> String? {
+        AccessToken.current?.tokenString
+    }
 }
 

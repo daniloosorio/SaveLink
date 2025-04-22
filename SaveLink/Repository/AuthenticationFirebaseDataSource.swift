@@ -80,4 +80,74 @@ final class AuthenticationFirebaseDataSource {
         }.compactMap{$0}
         return linkedAccounts
     }
+    
+    func linkFacebook(completionBlock: @escaping (Bool) -> Void) {
+        facebookAuthentication.loginFacebook{ result in
+            switch result {
+            case .success(let accessToken):
+                let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
+                Auth.auth().currentUser?.link(with: credential) { (authDataResul, error) in
+                    if let error = error {
+                        print("Error linking a new user \(error.localizedDescription)")
+                        completionBlock(false)
+                    }
+                    let email = authDataResul?.user.email ?? "No email"
+                    print("new user linked: \(email)")
+                    completionBlock(true)
+                }
+            case.failure(let error):
+                print("Error linkin a new user \(error.localizedDescription)")
+                completionBlock(false)
+            }
+        }
+        
+    }
+    
+    func getCurrentCredential() -> AuthCredential? {
+        guard let providerId = currentProvider().last else {
+            return nil
+        }
+        switch providerId {
+        case .facebook:
+            guard let accessToken = facebookAuthentication.getAccessToken() else {
+                return nil
+            }
+            let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
+            return credential
+        case .emailAndPassword, .unknown:
+            return nil
+        
+        }
+    }
+    
+    func linkEmailAndPassword(email:String, password : String, completionBlock: @escaping(Bool)->Void){
+        guard let credential = getCurrentCredential() else {
+            print("error creatin credential")
+            completionBlock(false)
+            return
+        }
+        Auth.auth().currentUser?.reauthenticate(with: credential, completion: { authDataResult, error in
+            if let error = error {
+                print("error reauthenticating user: \(error.localizedDescription)")
+                completionBlock(false)
+                return
+            }
+            
+            let emailAndPasswordCredential = EmailAuthProvider.credential(withEmail: email, password: password)
+            
+            Auth.auth().currentUser?.link(with: emailAndPasswordCredential, completion: { authDataResult, error in
+                if let error = error {
+                    print("error linking email and password: \(error.localizedDescription)")
+                    completionBlock(false)
+                    return
+                }
+                let email = authDataResult?.user.email ?? "No email"
+                print("new user linked with email \(email)")
+                completionBlock(true)
+                
+            })
+            
+            
+        })
+    }
 }
