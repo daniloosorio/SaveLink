@@ -9,13 +9,16 @@ import SwiftUI
 
 struct HomeView: View {
     @State var authenticationViewModel: AuthenticationViewModel
+    @State var linkViewModel: LinkViewModel = LinkViewModel()
+    
     var body: some View {
         NavigationView(content: {
             TabView{
                 VStack{
                     Text("Bienvenido\(authenticationViewModel.user?.email ?? "No hay usuario")")
-                        .padding(.top,32)
+                        .padding(.top,8)
                     Spacer()
+                    LinkView(linkViewModel:linkViewModel)
                 }.tabItem{
                     Label("Home", systemImage: "house.fill")
                 }

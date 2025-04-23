@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		873C30AE2DB882CF009AD0BC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 873C30AD2DB882CF009AD0BC /* FirebaseFirestore */; };
 		87820C1E2DA8A4A50089AC4A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 87820C1D2DA8A4A50089AC4A /* FirebaseAnalytics */; };
 		87C20E9E2DADF30700AE5B39 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 87C20E9D2DADF30700AE5B39 /* FirebaseAuth */; };
 		87DB2DBC2DAF419900806D28 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 87DB2DBB2DAF419900806D28 /* FacebookLogin */; };
@@ -72,6 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				87820C1E2DA8A4A50089AC4A /* FirebaseAnalytics in Frameworks */,
+				873C30AE2DB882CF009AD0BC /* FirebaseFirestore in Frameworks */,
 				87C20E9E2DADF30700AE5B39 /* FirebaseAuth in Frameworks */,
 				87DB2DBC2DAF419900806D28 /* FacebookLogin in Frameworks */,
 			);
@@ -145,6 +147,7 @@
 				87820C1D2DA8A4A50089AC4A /* FirebaseAnalytics */,
 				87C20E9D2DADF30700AE5B39 /* FirebaseAuth */,
 				87DB2DBB2DAF419900806D28 /* FacebookLogin */,
+				873C30AD2DB882CF009AD0BC /* FirebaseFirestore */,
 			);
 			productName = SaveLink;
 			productReference = 87820BED2DA8A2BA0089AC4A /* SaveLink.app */;
@@ -618,6 +621,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		873C30AD2DB882CF009AD0BC /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 87820C1C2DA8A4A50089AC4A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
 		87820C1D2DA8A4A50089AC4A /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 87820C1C2DA8A4A50089AC4A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
