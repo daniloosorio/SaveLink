@@ -28,4 +28,37 @@ final class LinkViewModel {
             }
         }
     }
+    
+    func createNewLink(fromURL url: String){
+        linkRepository.createNewLink(withURL: url, completionBlock: { [weak self] result in
+            switch result {
+            case .success(let link):
+                print(" new link created: \(link.title)")
+            case .failure(let error):
+                self?.messageError = error.localizedDescription
+            }
+        })
+    }
+    
+    func updateIsFavorited(link:LinkModel){
+        let updateLink = LinkModel(id: link.id,
+                                   url: link.url,
+                                   title: link.title,
+                                   isFavorite: link.isFavorite ? false : true,
+                                   isCompleted: link.isCompleted)
+        linkRepository.update(link: updateLink)
+    }
+    
+    func updateIsCompleted(link:LinkModel){
+        let updateLink = LinkModel(id: link.id,
+                                   url: link.url,
+                                   title: link.title,
+                                   isFavorite: link.isFavorite,
+                                   isCompleted: link.isCompleted ? false : true)
+        linkRepository.update(link: updateLink)
+    }
+    
+    func delete(link:LinkModel){
+        linkRepository.delete(link: link)
+    }
 }

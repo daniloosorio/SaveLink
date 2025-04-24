@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 
 
-struct LinkModel: Decodable,Identifiable {
+struct LinkModel: Decodable,Identifiable,Encodable {
     @DocumentID var id: String?
     let url: String
     let title: String
@@ -37,6 +37,29 @@ final class LinkDatasource {
                     .compactMap({$0})
                 completionBlock(.success(links))
             }
+    }
+    
+    func createNew(link:LinkModel, completionBlock: @escaping (Result<LinkModel,Error>) -> Void){
+        do {
+            _ = try database.collection(colletion).addDocument(from: link)
+            completionBlock(.success(link))
+        } catch {
+            completionBlock(.failure(error))
+        }
+    }
+    
+    func updateLink(link:LinkModel){
+        guard let documentId = link.id else { return }
+        do {
+            _ = try database.collection(colletion).document(documentId).setData(from: link)
+        }catch {
+            print("Error updating link in our databse")
+        }
+    }
+    
+    func delete(link:LinkModel){
+        guard let documentId = link.id else { return }
+        database.collection(colletion).document(documentId).delete()
     }
     
 }

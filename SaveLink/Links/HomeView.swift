@@ -12,30 +12,42 @@ struct HomeView: View {
     @State var linkViewModel: LinkViewModel = LinkViewModel()
     
     var body: some View {
-        NavigationView(content: {
-            TabView{
-                VStack{
-                    Text("Bienvenido\(authenticationViewModel.user?.email ?? "No hay usuario")")
-                        .padding(.top,8)
+        TabView {
+            NavigationStack {
+                VStack {
+                    Text("Bienvenido \(authenticationViewModel.user?.email ?? "No hay usuario")")
+                        .padding(.top, 8)
                     Spacer()
-                    LinkView(linkViewModel:linkViewModel)
-                }.tabItem{
-                    Label("Home", systemImage: "house.fill")
+                    LinkView(linkViewModel: linkViewModel)
                 }
-                ProfileView(authenticationViewModel:authenticationViewModel)
-                    .tabItem{
-                        Label("Profile", systemImage: "person.fill")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Home")
+                .toolbar {
+                    Button("Logout") {
+                        authenticationViewModel.logout()
+                    }
+                }
+            }
+            .tabItem {
+                Label("Home", systemImage: "house.fill")
+            }
+
+            NavigationStack {
+                ProfileView(authenticationViewModel: authenticationViewModel)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle("Profile")
+                    .toolbar {
+                        Button("Logout") {
+                            authenticationViewModel.logout()
+                        }
                     }
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Home")
-            .toolbar(content: {
-                Button("Logout"){
-                    authenticationViewModel.logout()
-                }
-            })
-        })
+            .tabItem {
+                Label("Profile", systemImage: "person.fill")
+            }
+        }
     }
+
 }
 
 #Preview {
