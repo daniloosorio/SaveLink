@@ -30,12 +30,15 @@ final class LinkViewModel {
     }
     
     func createNewLink(fromURL url: String){
+        Tracker.trackerCreateLinkEvent(url: url)
         linkRepository.createNewLink(withURL: url, completionBlock: { [weak self] result in
             switch result {
             case .success(let link):
                 print(" new link created: \(link.title)")
+                Tracker.trackerSaveLinkEvent()
             case .failure(let error):
                 self?.messageError = error.localizedDescription
+                Tracker.trackErrorSaveLinkEvent(error: error.localizedDescription)
             }
         })
     }
