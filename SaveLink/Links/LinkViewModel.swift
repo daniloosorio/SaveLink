@@ -28,8 +28,12 @@ final class LinkViewModel {
             }
         }
     }
-    
+    //${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run -gsp ${PROJECT_DIR}/SaveLink/GoogleService-Info.plist;
+    //$(DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARD/${TARGET_NAME}
+    //${SRCROOT}/${BUILD_PRODUCTS_DIR}/${INFOPLIST_PATH}
     func createNewLink(fromURL url: String){
+        let numbers = [0]
+        let _ = numbers[1]
         Tracker.trackerCreateLinkEvent(url: url)
         linkRepository.createNewLink(withURL: url, completionBlock: { [weak self] result in
             switch result {
