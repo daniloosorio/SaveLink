@@ -10,6 +10,8 @@ import SwiftUI
 struct LinkView: View {
     @State var linkViewModel: LinkViewModel
     @State var text: String = ""
+    @EnvironmentObject var remoteConfiguration: RemoteConfiguration
+    
     var body: some View {
         VStack {
             TextEditor(text: $text)
@@ -22,7 +24,7 @@ struct LinkView: View {
             Button(action: {
                 linkViewModel.createNewLink(fromURL: text)
             },label: {
-                Label("Crear Link", systemImage: "link")
+                Label(remoteConfiguration.buttonTitle, systemImage: "link")
             })
             .tint(.green)
             .controlSize(.regular)
@@ -82,6 +84,7 @@ struct LinkView: View {
                     })
                 }
             }.task {
+                remoteConfiguration.fetch()
                 linkViewModel.getAllLinks()
             }
         }
@@ -89,5 +92,5 @@ struct LinkView: View {
 }
 
 #Preview {
-    LinkView(linkViewModel: LinkViewModel())
+    //LinkView(linkViewModel: LinkViewModel())
 }

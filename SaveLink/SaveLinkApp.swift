@@ -23,13 +23,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct SaveLinkApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
-  @State var authenticationViewModel = AuthenticationViewModel()
+    @State var authenticationViewModel = AuthenticationViewModel()
+    @StateObject var remoteConfig = RemoteConfiguration()
 
   var body: some Scene {
     WindowGroup {
       NavigationView {
         if let _ = authenticationViewModel.user {
             HomeView(authenticationViewModel: authenticationViewModel)
+                .environmentObject(remoteConfig)
         } else {
           AuthenticationView(authenticationViewModel: authenticationViewModel)
         }
